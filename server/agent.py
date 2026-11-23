@@ -6,6 +6,7 @@ message, repeat until the model answers without tools.
 
 import asyncio
 import dataclasses
+import re
 import time
 from dataclasses import dataclass, field
 from typing import Awaitable, Callable
@@ -169,6 +170,21 @@ def build_stable_prompt(s: Session, variant: str | None = None, deep_dive: bool 
     return "\n".join(parts)
 
 
+# Last sentence announces work still to do: "Let me check...", "I'll pull up...".
+_PROMISE = re.compile(r"\b(let me|let's|i'll|i will|i'm going to|going to (check|look|read|pull))\b", re.I)
+
+
+def _round_text(msg) -> str:
+    return "".join(b.text for b in msg.content if b.type == "text").strip()
+
+
+def promises_more(text: str) -> bool:
+    if not text:
+        return True                  # highlighted without saying anything: not an answer yet
+    last = re.split(r"(?<=[.!?])\s+", text)[-1]
+    return bool(_PROMISE.search(last))
+
+
 @dataclass
 class TurnStats:
     rounds: int = 0
@@ -297,11 +313,6 @@ async def answer(s: Session, user_text: str, on_text: TextCB, on_event: EventCB,
                     s, "error: output hit max_tokens before this call finished; call fewer tools at once")
                 continue
 
-            # show_code only ever returns "ok", so if the model already gave its answer
-            # alongside its highlights, another model call would just add a round trip.
-            answered = any(b.type == "text" and b.text.strip() for b in msg.content)
-            highlight_only = answered and all(c.name == "show_code" for c in calls)
-
             for c in calls:
                 stats.tool_calls.append((c.name, c.input))
                 await on_event({"type": "tool_call", "name": c.name, "input": c.input,
@@ -320,17 +331,18 @@ async def answer(s: Session, user_text: str, on_text: TextCB, on_event: EventCB,
                 {"type": "tool_result", "tool_use_id": c.id, "content": content,
                  **({"is_error": True} if is_err else {})}
                 for c, (content, is_err) in zip(calls, results)]})
-            show_failed = False
             for c, (_, is_err) in zip(calls, results):
                 if c.name == "read_file" and not is_err and isinstance(c.input, dict):
                     last_read = c.input
-                if c.name == "show_code":
-                    if is_err:
-                        show_failed = True
-                    else:
-                        stats.shown.append(c.input.get("path"))
-            # Stop early only if the highlights worked; a failed one gets a round to fix it.
-            if highlight_only and not show_failed:
+                if c.name == "show_code" and not is_err:
+                    stats.shown.append(c.input.get("path"))
+            # A round that only highlights usually means the answer is done: another model
+            # call would just add a round trip (and an unprompted "want me to...?"). But when
+            # the text ends by promising more ("Let me check how it starts"), stopping here
+            # leaves the user in silence, so give it the round it asked for.
+            if (calls and all(c.name == "show_code" for c in calls)
+                    and not any(is_err for _, is_err in results)
+                    and not promises_more(_round_text(msg))):
                 break
         else:
             await emit_text(" That one's taking a while. Want me to keep digging?")

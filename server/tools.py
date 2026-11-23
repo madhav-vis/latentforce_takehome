@@ -113,7 +113,11 @@ async def show_code(s: Session, path: str, start: int, end: int) -> str:
     await emit(s, "show_code", path=path, code=lines[lo - 1:hi], first_line=lo,
                lines=[start, end], total_lines=len(lines), symbol=symbol)
     update_focus(s, path, start, end, symbol)
-    return "ok"
+    # The model only sees this string, not the code. It sometimes uses show_code to "look"
+    # at something it just promised to check, so say what to do next either way.
+    return ("Shown on the user's screen (you have not seen these lines; use read_file if you "
+            "need them). If your spoken answer is already complete, end your turn with no "
+            "more text. Otherwise keep going.")
 
 
 # --- step 6: focus ---------------------------------------------------------------
