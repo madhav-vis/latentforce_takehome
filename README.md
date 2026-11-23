@@ -8,6 +8,38 @@ Paste a public GitHub link and talk to the repo. The agent answers out loud in a
 
 There's no database and no vector index. Each session clones the repo, builds an Aider-style repo map in memory, and the agent searches the real files with ripgrep.
 
+**Live demo: https://78-47-65-212.sslip.io**. Ask me for the passcode.
+
+## What it adds over a basic voice agent
+
+A basic voice agent transcribes your question, sends it to a model with a few file tools, waits for the full reply, then reads it aloud. Here is what this one does differently. The numbers come from the evals described under [Results](#results), comparing against the first working version of this app.
+
+**Faster to start talking**
+- **Short spoken preamble before the first lookup** ("Let me check the router"), so you hear something while the tools run. A typical answer needs 2–3 s of lookups.
+- **Sentence-by-sentence text-to-speech.** Each sentence is flushed to ElevenLabs as soon as it's complete instead of waiting for the whole answer. Time to the first synthesized audio dropped from 1.0–1.4 s to about 0.2 s.
+- **Eager end-of-turn.** It starts answering on a draft transcript before Flux confirms you've stopped, and holds the audio until the transcript is confirmed. If you were still talking, the draft is thrown away.
+- **Thinking off and prompt caching** on the voice turns. Turning thinking off cut the model's first-text time from 0.97 s to 0.40 s (p50), and caching the conversation history cut input cost by 57%.
+- **Overall:** from the end of your speech to the first sound, 1.44 s p50 and 1.64 s p95, down from 2.51 s and 2.90 s.
+
+**Knows where to look**
+- **Repo map in the prompt.** A tree-sitter symbol map, ranked with PageRank and shown with line numbers, lets the agent go straight to the right file. Mean tool rounds dropped from 3.28 to 2.69 with the map, compared with no map.
+- **Parallel tool calls.** It batches greps and file reads into one round.
+- **Optional Sonnet 5.5 deep dive** for "trace the whole flow" questions. It was used on 2–3 of 40 eval questions, with no measurable change in correctness.
+
+**Shows what it's talking about**
+- **Synced code pane.** Every answer highlights the file and lines being discussed. If the model forgets to, the app falls back to what the model read or named. The right file was on screen for 97–100% of answers, up from 83%.
+- **Spoken progress in long silences.** Tool calls show on screen as they happen, and when a lookup runs long, a short spoken update ("Reading the session module…") fills the silence.
+
+**Behaves like a conversation**
+- **Follow-ups resolve.** What's on screen (the file, the symbol, and its callers and callees) is passed along with the next question, so "what calls that?" works. The judge rated 100% of follow-ups as answered without a clarifying question.
+- **Barge-in.** You can interrupt. Speech stops immediately, and the agent is told exactly which words you heard before you cut in.
+- **Speakable answers.** File paths and identifiers are rewritten into words before speech. Paths read aloud dropped from 18% of answers to 8%.
+- **No wait on the first visit.** A greeting plays as soon as you connect, while the repo clones and the map builds. A short spoken overview of the repo follows when it's ready. Maps and overviews are cached per commit.
+
+**Accuracy:** correctness rose from 3.88 to 4.03 and 4.10 across two runs, scored 1–5 by a Sonnet 5.5 judge on 40 questions over two repos.
+
+Not measured by the evals: barge-in, the spoken progress updates and the greeting were tested by hand only.
+
 ## Run it
 
 You need three API keys:
