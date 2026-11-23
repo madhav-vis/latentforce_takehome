@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    env_file: .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./cache:/app/cache   # repo maps and overviews, keyed by commit, survive restarts
+    # If the page loads but voice never connects (WebRTC can't reach the container),
+    # replace `ports:` with `network_mode: host`. On Docker Desktop, host networking
+    # must be turned on under Settings > Resources > Network.

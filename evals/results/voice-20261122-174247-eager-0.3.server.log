@@ -1,0 +1,401 @@
+2026-11-22 17:42:47.842 | INFO     | pipecat:<module>:54 - ᓚᘏᗢ Pipecat 1.16.0 (Python 3.12.15 (main, Oct  9 2026, 15:10:57) [Clang 22.1.3 ]) ᓚᘏᗢ
+2026-11-22 17:42:47.933 | DEBUG    | pipecat.transports.smallwebrtc.connection:<module>:80 - [SCTP] USERDATA_MAX_LENGTH set to 1100
+INFO:     Started server process [1185]
+INFO:     Waiting for application startup.
+2026-11-22 17:42:49.200 | INFO     | server.pipeline:prerender_fallback_greeting:99 - pre-rendered fallback greeting (245202 bytes)
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:61165 (Press CTRL+C to quit)
+INFO:     127.0.0.1:61171 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61172 - "POST /session HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61172 - "GET /events/fb3898fb9fdc HTTP/1.1" 200 OK
+2026-11-22 17:42:49.316 | DEBUG    | pipecat.transports.smallwebrtc.connection:_initialize:332 - Initializing new peer connection
+2026-11-22 17:42:49.321 | DEBUG    | pipecat.transports.smallwebrtc.connection:_create_answer:429 - Creating answer
+2026-11-22 17:42:49.322 | DEBUG    | pipecat.transports.smallwebrtc.connection:on_track:411 - Track audio received
+2026-11-22 17:42:49.322 | DEBUG    | pipecat.transports.smallwebrtc.connection:on_icegatheringstatechange:407 - ICE gathering state is gathering
+2026-11-22 17:42:49.323 | DEBUG    | pipecat.transports.smallwebrtc.connection:on_icegatheringstatechange:407 - ICE gathering state is complete
+2026-11-22 17:42:49.323 | DEBUG    | pipecat.transports.smallwebrtc.connection:_create_answer:432 - Setting the answer after the local description is created
+2026-11-22 17:42:49.323 | DEBUG    | pipecat.transports.smallwebrtc.request_handler:handle_web_request:218 - webrtc_connection_callback executed successfully for peer: SmallWebRTCConnection#0-48d50612f43f4fb7be93aaf1ceb23715
+INFO:     127.0.0.1:61175 - "POST /offer?session_id=fb3898fb9fdc HTTP/1.1" 200 OK
+2026-11-22 17:42:49.324 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking Pipeline#0::Source -> SmallWebRTCInputTransport#0
+2026-11-22 17:42:49.324 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking SmallWebRTCInputTransport#0 -> DeepgramFluxSTTService#0
+2026-11-22 17:42:49.324 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking DeepgramFluxSTTService#0 -> UserTurnProcessor#0
+2026-11-22 17:42:49.324 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking UserTurnProcessor#0 -> RepoAgent#0
+2026-11-22 17:42:49.324 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking RepoAgent#0 -> SentenceFlushingTTS#0
+2026-11-22 17:42:49.324 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking SentenceFlushingTTS#0 -> SmallWebRTCOutputTransport#0
+2026-11-22 17:42:49.324 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking SmallWebRTCOutputTransport#0 -> HeardTracker#0
+2026-11-22 17:42:49.324 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking HeardTracker#0 -> Pipeline#0::Sink
+2026-11-22 17:42:49.325 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking PipelineWorker#0::Source -> RTVIProcessor#0
+2026-11-22 17:42:49.325 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking RTVIProcessor#0 -> Pipeline#0
+2026-11-22 17:42:49.325 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking Pipeline#0 -> PipelineWorker#0::Sink
+2026-11-22 17:42:49.325 | DEBUG    | pipecat.workers.runner:add_workers:230 - WorkerRunner 'runner-41ccfe4c': added worker 'PipelineWorker#0'
+2026-11-22 17:42:49.325 | DEBUG    | pipecat.workers.runner:run:273 - WorkerRunner 'runner-41ccfe4c': started running
+2026-11-22 17:42:49.325 | DEBUG    | pipecat.workers.runner:_start_worker:459 - WorkerRunner 'runner-41ccfe4c': starting worker 'PipelineWorker#0'
+2026-11-22 17:42:49.325 | DEBUG    | pipecat.transports.smallwebrtc.connection:on_iceconnectionstatechange:401 - ICE connection state is checking, connection is connecting
+2026-11-22 17:42:49.325 | DEBUG    | pipecat.transports.smallwebrtc.connection:_monitoring_connecting_state:607 - Monitoring connecting state
+2026-11-22 17:42:49.325 | DEBUG    | pipecat.transports.smallwebrtc.connection:_handle_new_connection_state:683 - Connection state changed to: connecting
+2026-11-22 17:42:49.326 | INFO     | pipecat.transports.smallwebrtc.transport:connect:553 - Connecting to Small WebRTC
+2026-11-22 17:42:49.328 | DEBUG    | pipecat.services.tts_service:setup:609 - SentenceFlushingTTS#0: TTS sample rate 24000 Hz (from pipeline)
+2026-11-22 17:42:49.328 | DEBUG    | pipecat.services.elevenlabs.tts_base:_connect_websocket:732 - Connecting to ElevenLabs
+2026-11-22 17:42:49.329 | DEBUG    | pipecat.transports.base_output:setup:146 - SmallWebRTCOutputTransport#0: output audio sample rate 24000 Hz (from pipeline)
+2026-11-22 17:42:49.329 | DEBUG    | pipecat.pipeline.worker:_wait_for_pipeline_start:1327 - PipelineWorker#0: Starting. Waiting for StartFrame#0 to reach the end of the pipeline...
+2026-11-22 17:42:49.352 | DEBUG    | pipecat.transports.smallwebrtc.connection:on_iceconnectionstatechange:401 - ICE connection state is completed, connection is connecting
+2026-11-22 17:42:49.353 | DEBUG    | pipecat.transports.smallwebrtc.connection:_cancel_monitoring_connecting_state:627 - Cancelling the connecting timeout task
+2026-11-22 17:42:49.353 | DEBUG    | pipecat.transports.smallwebrtc.connection:_handle_new_connection_state:683 - Connection state changed to: connected
+2026-11-22 17:42:49.353 | DEBUG    | pipecat.transports.smallwebrtc.transport:on_connected:279 - Peer connection established.
+2026-11-22 17:42:49.353 | WARNING  | pipecat.transports.smallwebrtc.connection:video_input_track:746 - No video transceiver is available
+2026-11-22 17:42:49.353 | WARNING  | pipecat.transports.smallwebrtc.connection:screen_video_input_track:768 - No screen video transceiver is available
+2026-11-22 17:42:49.353 | DEBUG    | pipecat.transports.smallwebrtc.connection:replace_audio_track:522 - Replacing audio track audio
+2026-11-22 17:42:49.353 | INFO     | server.pipeline:on_connected:503 - session fb3898fb9fdc: client connected
+2026-11-22 17:42:49.362 | DEBUG    | pipecat.transports.smallwebrtc.connection:_cancel_data_channel_timeout:665 - Cancelling the data channel timeout task
+2026-11-22 17:42:49.362 | DEBUG    | pipecat.transports.smallwebrtc.connection:_flush_message_queue:820 - Data channel is open, flushing queued messages
+2026-11-22 17:42:49.792 | DEBUG    | pipecat.services.deepgram.flux.stt:_connect_websocket:344 - DeepgramFluxSTTService#0: Websocket connection initialized: {"headers": {'dg-project-id': 'fa57e37e-2afc-4b74-964d-a33ba00eabb7', 'dg-request-id': '01a20611-f4a1-71ea-a914-71e107e290c6'}}
+2026-11-22 17:42:49.793 | INFO     | pipecat.services.deepgram.flux.stt_base:_handle_connection_established:770 - DeepgramFluxSTTService#0: Connected to Flux - ready to stream audio (request_id='01a20611-f4a1-71ea-a914-71e107e290c6')
+2026-11-22 17:42:49.804 | DEBUG    | pipecat.registry.registry:register:132 - Worker 'PipelineWorker#0' ready (local)
+2026-11-22 17:42:49.804 | DEBUG    | pipecat.workers.runner:_send_registry:511 - WorkerRunner 'runner-41ccfe4c': broadcasting registry: ['PipelineWorker#0']
+2026-11-22 17:42:49.804 | DEBUG    | pipecat.workers.base_worker:_maybe_activate:1284 - Worker 'PipelineWorker#0': activated
+2026-11-22 17:42:49.804 | DEBUG    | pipecat.pipeline.worker:_wait_for_pipeline_start:1344 - PipelineWorker#0: StartFrame#0 reached the end of the pipeline, pipeline is now ready.
+2026-11-22 17:42:50.846 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:stop_ttfb_metrics:175 - SentenceFlushingTTS#0 TTFB: 0.233s
+2026-11-22 17:42:50.848 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:process_ttfa_metrics:228 - SentenceFlushingTTS#0 TTFA: 0.273s (0.040s leading silence)
+2026-11-22 17:42:50.850 | DEBUG    | pipecat.transports.base_output:_bot_started_speaking:751 - Bot started speaking
+2026-11-22 17:42:51.233 | DEBUG    | pipecat.services.elevenlabs.tts:_receive_messages:608 - Received final message for context a0d6a5cf-0b5a-4cde-a798-a0c226d0ec31
+2026-11-22 17:42:51.240 | DEBUG    | pipecat.services.tts_service:_finish_tts_context:1624 - SentenceFlushingTTS#0 cleaning up TTS context a0d6a5cf-0b5a-4cde-a798-a0c226d0ec31
+2026-11-22 17:43:06.804 | DEBUG    | pipecat.transports.base_output:_handle_frame:934 - Bot stopped speaking based on TTSStoppedFrame
+2026-11-22 17:43:06.804 | DEBUG    | pipecat.transports.base_output:_bot_stopped_speaking:868 - Bot stopped speaking
+2026-11-22 17:43:08.802 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_start_of_turn:842 - User started speaking
+2026-11-22 17:43:08.802 | DEBUG    | pipecat.turns.user_start.external_user_turn_start_strategy:process_frame:67 - ExternalUserTurnStartStrategy#0: resolving a proposed user turn start
+2026-11-22 17:43:08.803 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_started:237 - UserTurnProcessor#0: User started speaking (strategy: ExternalUserTurnStartStrategy#0)
+2026-11-22 17:43:08.803 | DEBUG    | pipecat.processors.frame_processor:broadcast_interruption:1050 - UserTurnProcessor#0: broadcasting interruption
+2026-11-22 17:43:09.805 | INFO     | server.pipeline:_speculate:232 - eager: answering draft 'What does this project do?'
+2026-11-22 17:43:10.335 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_end_of_turn:914 - User stopped speaking
+2026-11-22 17:43:10.337 | DEBUG    | pipecat.turns.user_stop.external_user_turn_stop_strategy:_report_user_turn_stopped:211 - ExternalUserTurnStopStrategy#0: resolving a proposed user turn stop
+2026-11-22 17:43:10.337 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_inference_triggered:279 - UserTurnProcessor#0: User turn inference triggered (strategy: ExternalUserTurnStopStrategy#0)
+2026-11-22 17:43:10.337 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_stopped:255 - UserTurnProcessor#0: User stopped speaking (strategy: ExternalUserTurnStopStrategy#0)
+2026-11-22 17:43:10.338 | INFO     | server.pipeline:_confirm_speculation:237 - eager: confirmed, 0.53s head start, 1 frames released
+2026-11-22 17:43:10.704 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:stop_ttfb_metrics:175 - SentenceFlushingTTS#0 TTFB: 0.220s
+2026-11-22 17:43:10.705 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:process_ttfa_metrics:228 - SentenceFlushingTTS#0 TTFA: 0.255s (0.035s leading silence)
+2026-11-22 17:43:10.707 | DEBUG    | pipecat.transports.base_output:_bot_started_speaking:751 - Bot started speaking
+2026-11-22 17:43:10.865 | INFO     | server.pipeline:_answer:349 - answer: highlight=model rounds=1 tools=1 first_text=0.5294888750067912 total=1.06s
+2026-11-22 17:43:10.866 | DEBUG    | pipecat.services.tts_service:_handle_llm_response_end:1435 - SentenceFlushingTTS#0: Generating TTS [Flask is a lightweight Python web framework built on Werkzeug and Jinja, and its central class is the Flask app object defined in the app module. Let me pull up that class definition so you can see where it starts. ]
+2026-11-22 17:43:11.141 | DEBUG    | pipecat.services.elevenlabs.tts:_receive_messages:608 - Received final message for context 953fd343-3990-428d-a894-06e888cee63a
+2026-11-22 17:43:11.141 | DEBUG    | pipecat.services.tts_service:_finish_tts_context:1624 - SentenceFlushingTTS#0 cleaning up TTS context 953fd343-3990-428d-a894-06e888cee63a
+2026-11-22 17:43:23.584 | DEBUG    | pipecat.transports.base_output:_handle_frame:934 - Bot stopped speaking based on TTSStoppedFrame
+2026-11-22 17:43:23.585 | DEBUG    | pipecat.transports.base_output:_bot_stopped_speaking:868 - Bot stopped speaking
+2026-11-22 17:43:26.883 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_start_of_turn:842 - User started speaking
+2026-11-22 17:43:26.884 | DEBUG    | pipecat.turns.user_start.external_user_turn_start_strategy:process_frame:67 - ExternalUserTurnStartStrategy#0: resolving a proposed user turn start
+2026-11-22 17:43:26.884 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_started:237 - UserTurnProcessor#0: User started speaking (strategy: ExternalUserTurnStartStrategy#0)
+2026-11-22 17:43:26.884 | DEBUG    | pipecat.processors.frame_processor:broadcast_interruption:1050 - UserTurnProcessor#0: broadcasting interruption
+2026-11-22 17:43:28.323 | INFO     | server.pipeline:_speculate:232 - eager: answering draft 'What are the main pieces of the codebase?'
+2026-11-22 17:43:28.722 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_end_of_turn:914 - User stopped speaking
+2026-11-22 17:43:28.723 | DEBUG    | pipecat.turns.user_stop.external_user_turn_stop_strategy:_report_user_turn_stopped:211 - ExternalUserTurnStopStrategy#0: resolving a proposed user turn stop
+2026-11-22 17:43:28.723 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_inference_triggered:279 - UserTurnProcessor#0: User turn inference triggered (strategy: ExternalUserTurnStopStrategy#0)
+2026-11-22 17:43:28.723 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_stopped:255 - UserTurnProcessor#0: User stopped speaking (strategy: ExternalUserTurnStopStrategy#0)
+2026-11-22 17:43:28.725 | INFO     | server.pipeline:_confirm_speculation:237 - eager: confirmed, 0.40s head start, 1 frames released
+2026-11-22 17:43:29.429 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:stop_ttfb_metrics:175 - SentenceFlushingTTS#0 TTFB: 0.227s
+2026-11-22 17:43:29.430 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:process_ttfa_metrics:228 - SentenceFlushingTTS#0 TTFA: 0.274s (0.047s leading silence)
+2026-11-22 17:43:29.432 | DEBUG    | pipecat.transports.base_output:_bot_started_speaking:751 - Bot started speaking
+2026-11-22 17:43:30.180 | INFO     | server.pipeline:_answer:349 - answer: highlight=model rounds=1 tools=2 first_text=0.48956779099535197 total=1.86s
+2026-11-22 17:43:30.181 | DEBUG    | pipecat.services.tts_service:_handle_llm_response_end:1435 - SentenceFlushingTTS#0: Generating TTS [The main pieces are the Flask app class in the app module, which handles WSGI requests and config, the scaffolding base that provides route and error-handler decorators, and blueprints for grouping routes into reusable modules. Around those sit the context module, which manages app and request contexts, the helpers module with functions like url for, redirect, and send file, and the JSON provider for serialization. Let me show the context and scaffold pieces so you can see how they fit. ]
+2026-11-22 17:43:30.499 | DEBUG    | pipecat.services.elevenlabs.tts:_receive_messages:608 - Received final message for context e918f633-a41a-4c21-8d6e-a5736143211e
+2026-11-22 17:43:30.500 | DEBUG    | pipecat.services.tts_service:_finish_tts_context:1624 - SentenceFlushingTTS#0 cleaning up TTS context e918f633-a41a-4c21-8d6e-a5736143211e
+2026-11-22 17:43:39.618 | DEBUG    | pipecat.services.elevenlabs.tts:_receive_messages:608 - Received final message for context None
+2026-11-22 17:44:02.864 | DEBUG    | pipecat.transports.base_output:_handle_frame:934 - Bot stopped speaking based on TTSStoppedFrame
+2026-11-22 17:44:02.864 | DEBUG    | pipecat.transports.base_output:_bot_stopped_speaking:868 - Bot stopped speaking
+2026-11-22 17:44:05.881 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_start_of_turn:842 - User started speaking
+2026-11-22 17:44:05.882 | DEBUG    | pipecat.turns.user_start.external_user_turn_start_strategy:process_frame:67 - ExternalUserTurnStartStrategy#0: resolving a proposed user turn start
+2026-11-22 17:44:05.882 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_started:237 - UserTurnProcessor#0: User started speaking (strategy: ExternalUserTurnStartStrategy#0)
+2026-11-22 17:44:05.882 | DEBUG    | pipecat.processors.frame_processor:broadcast_interruption:1050 - UserTurnProcessor#0: broadcasting interruption
+2026-11-22 17:44:07.122 | INFO     | server.pipeline:_speculate:232 - eager: answering draft "What's the SANSIO folder for?"
+2026-11-22 17:44:07.135 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_end_of_turn:914 - User stopped speaking
+2026-11-22 17:44:07.136 | DEBUG    | pipecat.turns.user_stop.external_user_turn_stop_strategy:_report_user_turn_stopped:211 - ExternalUserTurnStopStrategy#0: resolving a proposed user turn stop
+2026-11-22 17:44:07.136 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_inference_triggered:279 - UserTurnProcessor#0: User turn inference triggered (strategy: ExternalUserTurnStopStrategy#0)
+2026-11-22 17:44:07.136 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_stopped:255 - UserTurnProcessor#0: User stopped speaking (strategy: ExternalUserTurnStopStrategy#0)
+2026-11-22 17:44:07.137 | INFO     | server.pipeline:_confirm_speculation:237 - eager: confirmed, 0.01s head start, 1 frames released
+2026-11-22 17:44:08.011 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:stop_ttfb_metrics:175 - SentenceFlushingTTS#0 TTFB: 0.223s
+2026-11-22 17:44:08.012 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:process_ttfa_metrics:228 - SentenceFlushingTTS#0 TTFA: 0.292s (0.069s leading silence)
+2026-11-22 17:44:08.013 | DEBUG    | pipecat.transports.base_output:_bot_started_speaking:751 - Bot started speaking
+2026-11-22 17:44:08.550 | INFO     | server.pipeline:_answer:349 - answer: highlight=model rounds=1 tools=1 first_text=0.42386012501083314 total=1.43s
+2026-11-22 17:44:08.551 | DEBUG    | pipecat.services.tts_service:_handle_llm_response_end:1435 - SentenceFlushingTTS#0: Generating TTS [The sansio folder holds the parts of Flask that don't do any I/O, meaning no WSGI request handling, no sockets, no running a server. The Scaffold class on screen is one of them, and it's the shared base for both the app and blueprints, which is why route and error-handler decorators live there. The concrete Flask class then adds the WSGI behavior on top. Let me check the sansio app module header to confirm that split. ]
+2026-11-22 17:44:08.908 | DEBUG    | pipecat.services.elevenlabs.tts:_receive_messages:608 - Received final message for context b3d62607-b3a5-4a69-8a28-6ba67d12ea8b
+2026-11-22 17:44:08.910 | DEBUG    | pipecat.services.tts_service:_finish_tts_context:1624 - SentenceFlushingTTS#0 cleaning up TTS context b3d62607-b3a5-4a69-8a28-6ba67d12ea8b
+2026-11-22 17:44:36.124 | DEBUG    | pipecat.transports.base_output:_handle_frame:934 - Bot stopped speaking based on TTSStoppedFrame
+2026-11-22 17:44:36.125 | DEBUG    | pipecat.transports.base_output:_bot_stopped_speaking:868 - Bot stopped speaking
+2026-11-22 17:44:39.294 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_start_of_turn:842 - User started speaking
+2026-11-22 17:44:39.294 | DEBUG    | pipecat.turns.user_start.external_user_turn_start_strategy:process_frame:67 - ExternalUserTurnStartStrategy#0: resolving a proposed user turn start
+2026-11-22 17:44:39.294 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_started:237 - UserTurnProcessor#0: User started speaking (strategy: ExternalUserTurnStartStrategy#0)
+2026-11-22 17:44:39.295 | DEBUG    | pipecat.processors.frame_processor:broadcast_interruption:1050 - UserTurnProcessor#0: broadcasting interruption
+2026-11-22 17:44:40.682 | INFO     | server.pipeline:_speculate:232 - eager: answering draft 'Where are URL routes registered?'
+2026-11-22 17:44:41.162 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_end_of_turn:914 - User stopped speaking
+2026-11-22 17:44:41.163 | DEBUG    | pipecat.turns.user_stop.external_user_turn_stop_strategy:_report_user_turn_stopped:211 - ExternalUserTurnStopStrategy#0: resolving a proposed user turn stop
+2026-11-22 17:44:41.164 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_inference_triggered:279 - UserTurnProcessor#0: User turn inference triggered (strategy: ExternalUserTurnStopStrategy#0)
+2026-11-22 17:44:41.164 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_stopped:255 - UserTurnProcessor#0: User stopped speaking (strategy: ExternalUserTurnStopStrategy#0)
+2026-11-22 17:44:41.165 | INFO     | server.pipeline:_confirm_speculation:237 - eager: confirmed, 0.48s head start, 1 frames released
+2026-11-22 17:44:41.522 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:stop_ttfb_metrics:175 - SentenceFlushingTTS#0 TTFB: 0.256s
+2026-11-22 17:44:41.524 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:process_ttfa_metrics:228 - SentenceFlushingTTS#0 TTFA: 0.279s (0.023s leading silence)
+2026-11-22 17:44:41.528 | DEBUG    | pipecat.transports.base_output:_bot_started_speaking:751 - Bot started speaking
+2026-11-22 17:44:42.006 | INFO     | server.pipeline:_answer:349 - answer: highlight=model rounds=1 tools=2 first_text=0.47344349999912083 total=1.32s
+2026-11-22 17:44:42.007 | DEBUG    | pipecat.services.tts_service:_handle_llm_response_end:1435 - SentenceFlushingTTS#0: Generating TTS [Routes are registered in the add URL rule method on the sansio app class, which the route decorators ultimately call. The decorators themselves, get, post, and route, are on the Scaffold base. Let me show both. ]
+2026-11-22 17:44:42.239 | DEBUG    | pipecat.services.elevenlabs.tts:_receive_messages:608 - Received final message for context 0588ab18-610c-41ee-bf3f-2148fa0573fe
+2026-11-22 17:44:42.241 | DEBUG    | pipecat.services.tts_service:_finish_tts_context:1624 - SentenceFlushingTTS#0 cleaning up TTS context 0588ab18-610c-41ee-bf3f-2148fa0573fe
+2026-11-22 17:44:56.244 | DEBUG    | pipecat.transports.base_output:_handle_frame:934 - Bot stopped speaking based on TTSStoppedFrame
+2026-11-22 17:44:56.245 | DEBUG    | pipecat.transports.base_output:_bot_stopped_speaking:868 - Bot stopped speaking
+2026-11-22 17:44:59.241 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_start_of_turn:842 - User started speaking
+2026-11-22 17:44:59.241 | DEBUG    | pipecat.turns.user_start.external_user_turn_start_strategy:process_frame:67 - ExternalUserTurnStartStrategy#0: resolving a proposed user turn start
+2026-11-22 17:44:59.241 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_started:237 - UserTurnProcessor#0: User started speaking (strategy: ExternalUserTurnStartStrategy#0)
+2026-11-22 17:44:59.241 | DEBUG    | pipecat.processors.frame_processor:broadcast_interruption:1050 - UserTurnProcessor#0: broadcasting interruption
+2026-11-22 17:45:00.247 | INFO     | server.pipeline:_speculate:232 - eager: answering draft 'Where is the session cookie'
+2026-11-22 17:45:00.367 | INFO     | server.pipeline:_cancel_speculation:263 - eager: discarded (turn resumed)
+2026-11-22 17:45:00.562 | INFO     | server.pipeline:_speculate:232 - eager: answering draft 'Where is the session cookie signed?'
+2026-11-22 17:45:00.564 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_end_of_turn:914 - User stopped speaking
+2026-11-22 17:45:00.564 | DEBUG    | pipecat.turns.user_stop.external_user_turn_stop_strategy:_report_user_turn_stopped:211 - ExternalUserTurnStopStrategy#0: resolving a proposed user turn stop
+2026-11-22 17:45:00.565 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_inference_triggered:279 - UserTurnProcessor#0: User turn inference triggered (strategy: ExternalUserTurnStopStrategy#0)
+2026-11-22 17:45:00.565 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_stopped:255 - UserTurnProcessor#0: User stopped speaking (strategy: ExternalUserTurnStopStrategy#0)
+2026-11-22 17:45:00.565 | INFO     | server.pipeline:_confirm_speculation:237 - eager: confirmed, 0.00s head start, 1 frames released
+2026-11-22 17:45:01.308 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:stop_ttfb_metrics:175 - SentenceFlushingTTS#0 TTFB: 0.212s
+2026-11-22 17:45:01.310 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:process_ttfa_metrics:228 - SentenceFlushingTTS#0 TTFA: 0.261s (0.049s leading silence)
+2026-11-22 17:45:01.311 | DEBUG    | pipecat.transports.base_output:_bot_started_speaking:751 - Bot started speaking
+2026-11-22 17:45:02.494 | INFO     | server.pipeline:_answer:349 - answer: highlight=model rounds=2 tools=2 first_text=0.4531251250009518 total=1.93s
+2026-11-22 17:45:02.495 | DEBUG    | pipecat.services.tts_service:_handle_llm_response_end:1435 - SentenceFlushingTTS#0: Generating TTS [I haven't looked at session signing yet, so let me find it. I'll search for the session interface. The session cookie is signed in the session module, by the secure cookie session interface. Its signing serializer comes from the itsdangerous library and is built from the app's secret key. Let me show that code. ]
+2026-11-22 17:45:02.725 | DEBUG    | pipecat.services.elevenlabs.tts:_receive_messages:608 - Received final message for context c0f5a3d9-13e7-46cb-94ef-661bdf854de3
+2026-11-22 17:45:02.725 | DEBUG    | pipecat.services.tts_service:_finish_tts_context:1624 - SentenceFlushingTTS#0 cleaning up TTS context c0f5a3d9-13e7-46cb-94ef-661bdf854de3
+2026-11-22 17:45:20.785 | DEBUG    | pipecat.transports.base_output:_handle_frame:934 - Bot stopped speaking based on TTSStoppedFrame
+2026-11-22 17:45:20.785 | DEBUG    | pipecat.transports.base_output:_bot_stopped_speaking:868 - Bot stopped speaking
+2026-11-22 17:45:23.844 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_start_of_turn:842 - User started speaking
+2026-11-22 17:45:23.845 | DEBUG    | pipecat.turns.user_start.external_user_turn_start_strategy:process_frame:67 - ExternalUserTurnStartStrategy#0: resolving a proposed user turn start
+2026-11-22 17:45:23.845 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_started:237 - UserTurnProcessor#0: User started speaking (strategy: ExternalUserTurnStartStrategy#0)
+2026-11-22 17:45:23.846 | DEBUG    | pipecat.processors.frame_processor:broadcast_interruption:1050 - UserTurnProcessor#0: broadcasting interruption
+2026-11-22 17:45:25.847 | INFO     | server.pipeline:_speculate:232 - eager: answering draft 'How does the flask command find my app?'
+2026-11-22 17:45:26.162 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_end_of_turn:914 - User stopped speaking
+2026-11-22 17:45:26.164 | DEBUG    | pipecat.turns.user_stop.external_user_turn_stop_strategy:_report_user_turn_stopped:211 - ExternalUserTurnStopStrategy#0: resolving a proposed user turn stop
+2026-11-22 17:45:26.164 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_inference_triggered:279 - UserTurnProcessor#0: User turn inference triggered (strategy: ExternalUserTurnStopStrategy#0)
+2026-11-22 17:45:26.164 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_stopped:255 - UserTurnProcessor#0: User stopped speaking (strategy: ExternalUserTurnStopStrategy#0)
+2026-11-22 17:45:26.165 | INFO     | server.pipeline:_confirm_speculation:237 - eager: confirmed, 0.32s head start, 1 frames released
+2026-11-22 17:45:26.950 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:stop_ttfb_metrics:175 - SentenceFlushingTTS#0 TTFB: 0.249s
+2026-11-22 17:45:26.952 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:process_ttfa_metrics:228 - SentenceFlushingTTS#0 TTFA: 0.271s (0.022s leading silence)
+2026-11-22 17:45:26.954 | DEBUG    | pipecat.transports.base_output:_bot_started_speaking:751 - Bot started speaking
+2026-11-22 17:45:27.627 | INFO     | server.pipeline:_answer:349 - answer: highlight=model rounds=2 tools=2 first_text=0.4806977080006618 total=1.78s
+2026-11-22 17:45:27.628 | DEBUG    | pipecat.services.tts_service:_handle_llm_response_end:1435 - SentenceFlushingTTS#0: Generating TTS [Let me look at how the CLI locates the app. The flask command reads the app location from the --app option or the FLASK APP environment variable, then imports that module and finds the app object in it. The locate function in the CLI module does that lookup. Let me show it. ]
+2026-11-22 17:45:27.999 | DEBUG    | pipecat.services.elevenlabs.tts:_receive_messages:608 - Received final message for context 1eb667fa-9fc3-4087-8611-0718e9c5ce61
+2026-11-22 17:45:27.999 | DEBUG    | pipecat.services.tts_service:_finish_tts_context:1624 - SentenceFlushingTTS#0 cleaning up TTS context 1eb667fa-9fc3-4087-8611-0718e9c5ce61
+2026-11-22 17:45:45.465 | DEBUG    | pipecat.transports.base_output:_handle_frame:934 - Bot stopped speaking based on TTSStoppedFrame
+2026-11-22 17:45:45.465 | DEBUG    | pipecat.transports.base_output:_bot_stopped_speaking:868 - Bot stopped speaking
+2026-11-22 17:45:47.801 | WARNING  | pipecat.transports.smallwebrtc.transport:read_audio_frame:462 - Media stream error while reading the audio; clearing track.
+2026-11-22 17:45:47.802 | DEBUG    | pipecat.transports.smallwebrtc.connection:on_ended:416 - Track audio ended
+2026-11-22 17:45:47.803 | DEBUG    | pipecat.transports.smallwebrtc.connection:on_iceconnectionstatechange:401 - ICE connection state is closed, connection is closed
+2026-11-22 17:45:47.803 | DEBUG    | pipecat.transports.smallwebrtc.connection:_handle_new_connection_state:683 - Connection state changed to: closed
+2026-11-22 17:45:47.803 | INFO     | pipecat.transports.smallwebrtc.request_handler:handle_disconnected:212 - Discarding peer connection for pc_id: SmallWebRTCConnection#0-48d50612f43f4fb7be93aaf1ceb23715
+2026-11-22 17:45:47.803 | DEBUG    | pipecat.transports.smallwebrtc.transport:on_closed:289 - Client connection closed.
+2026-11-22 17:45:47.803 | INFO     | server.pipeline:on_disconnected:508 - session fb3898fb9fdc: client disconnected
+2026-11-22 17:45:47.803 | DEBUG    | pipecat.pipeline.worker:_cancel:1188 - Cancelling pipeline worker PipelineWorker#0
+2026-11-22 17:45:47.803 | DEBUG    | pipecat.pipeline.worker:_wait_for_pipeline_end:1364 - PipelineWorker#0: Closing. Waiting for CancelFrame#0(reason: None) to reach the end of the pipeline...
+INFO:     127.0.0.1:61244 - "POST /session HTTP/1.1" 200 OK
+2026-11-22 17:45:47.821 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_send_close_stream:515 - Sending CloseStream message to Deepgram Flux
+2026-11-22 17:45:47.821 | DEBUG    | pipecat.services.deepgram.flux.stt:_disconnect_websocket:367 - DeepgramFluxSTTService#0: Disconnecting from Deepgram Flux Websocket
+INFO:     127.0.0.1:61244 - "GET /events/65ced5bb88be HTTP/1.1" 200 OK
+2026-11-22 17:45:47.849 | DEBUG    | pipecat.transports.smallwebrtc.connection:_initialize:332 - Initializing new peer connection
+2026-11-22 17:45:47.850 | DEBUG    | pipecat.transports.smallwebrtc.connection:_create_answer:429 - Creating answer
+2026-11-22 17:45:47.851 | DEBUG    | pipecat.transports.smallwebrtc.connection:on_track:411 - Track audio received
+2026-11-22 17:45:47.852 | DEBUG    | pipecat.transports.smallwebrtc.connection:on_icegatheringstatechange:407 - ICE gathering state is gathering
+2026-11-22 17:45:47.852 | DEBUG    | pipecat.transports.smallwebrtc.connection:on_icegatheringstatechange:407 - ICE gathering state is complete
+2026-11-22 17:45:47.853 | DEBUG    | pipecat.transports.smallwebrtc.connection:_create_answer:432 - Setting the answer after the local description is created
+2026-11-22 17:45:47.853 | DEBUG    | pipecat.transports.smallwebrtc.request_handler:handle_web_request:218 - webrtc_connection_callback executed successfully for peer: SmallWebRTCConnection#1-6cfe6415b81b454c907c94a389590603
+INFO:     127.0.0.1:61245 - "POST /offer?session_id=65ced5bb88be HTTP/1.1" 200 OK
+2026-11-22 17:45:47.854 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking Pipeline#2::Source -> SmallWebRTCInputTransport#1
+2026-11-22 17:45:47.854 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking SmallWebRTCInputTransport#1 -> DeepgramFluxSTTService#1
+2026-11-22 17:45:47.854 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking DeepgramFluxSTTService#1 -> UserTurnProcessor#1
+2026-11-22 17:45:47.854 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking UserTurnProcessor#1 -> RepoAgent#1
+2026-11-22 17:45:47.854 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking RepoAgent#1 -> SentenceFlushingTTS#1
+2026-11-22 17:45:47.854 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking SentenceFlushingTTS#1 -> SmallWebRTCOutputTransport#1
+2026-11-22 17:45:47.854 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking SmallWebRTCOutputTransport#1 -> HeardTracker#1
+2026-11-22 17:45:47.854 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking HeardTracker#1 -> Pipeline#2::Sink
+2026-11-22 17:45:47.855 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking PipelineWorker#1::Source -> RTVIProcessor#1
+2026-11-22 17:45:47.855 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking RTVIProcessor#1 -> Pipeline#2
+2026-11-22 17:45:47.855 | DEBUG    | pipecat.processors.frame_processor:link:705 - Linking Pipeline#2 -> PipelineWorker#1::Sink
+2026-11-22 17:45:47.855 | DEBUG    | pipecat.workers.runner:add_workers:230 - WorkerRunner 'runner-c3c8a807': added worker 'PipelineWorker#1'
+2026-11-22 17:45:47.855 | DEBUG    | pipecat.workers.runner:run:273 - WorkerRunner 'runner-c3c8a807': started running
+2026-11-22 17:45:47.855 | DEBUG    | pipecat.workers.runner:_start_worker:459 - WorkerRunner 'runner-c3c8a807': starting worker 'PipelineWorker#1'
+2026-11-22 17:45:47.856 | DEBUG    | pipecat.transports.smallwebrtc.connection:on_iceconnectionstatechange:401 - ICE connection state is checking, connection is connecting
+2026-11-22 17:45:47.856 | DEBUG    | pipecat.transports.smallwebrtc.connection:_monitoring_connecting_state:607 - Monitoring connecting state
+2026-11-22 17:45:47.856 | DEBUG    | pipecat.transports.smallwebrtc.connection:_handle_new_connection_state:683 - Connection state changed to: connecting
+2026-11-22 17:45:47.856 | INFO     | pipecat.transports.smallwebrtc.transport:connect:553 - Connecting to Small WebRTC
+2026-11-22 17:45:47.857 | DEBUG    | pipecat.services.tts_service:setup:609 - SentenceFlushingTTS#1: TTS sample rate 24000 Hz (from pipeline)
+2026-11-22 17:45:47.857 | DEBUG    | pipecat.services.elevenlabs.tts_base:_connect_websocket:732 - Connecting to ElevenLabs
+2026-11-22 17:45:47.857 | DEBUG    | pipecat.transports.base_output:setup:146 - SmallWebRTCOutputTransport#1: output audio sample rate 24000 Hz (from pipeline)
+2026-11-22 17:45:47.857 | DEBUG    | pipecat.pipeline.worker:_wait_for_pipeline_start:1327 - PipelineWorker#1: Starting. Waiting for StartFrame#1 to reach the end of the pipeline...
+2026-11-22 17:45:47.878 | DEBUG    | pipecat.transports.smallwebrtc.connection:on_iceconnectionstatechange:401 - ICE connection state is completed, connection is connecting
+2026-11-22 17:45:47.879 | DEBUG    | pipecat.transports.smallwebrtc.connection:_cancel_monitoring_connecting_state:627 - Cancelling the connecting timeout task
+2026-11-22 17:45:47.879 | DEBUG    | pipecat.transports.smallwebrtc.connection:_handle_new_connection_state:683 - Connection state changed to: connected
+2026-11-22 17:45:47.879 | DEBUG    | pipecat.transports.smallwebrtc.transport:on_connected:279 - Peer connection established.
+2026-11-22 17:45:47.879 | WARNING  | pipecat.transports.smallwebrtc.connection:video_input_track:746 - No video transceiver is available
+2026-11-22 17:45:47.879 | WARNING  | pipecat.transports.smallwebrtc.connection:screen_video_input_track:768 - No screen video transceiver is available
+2026-11-22 17:45:47.879 | DEBUG    | pipecat.transports.smallwebrtc.connection:replace_audio_track:522 - Replacing audio track audio
+2026-11-22 17:45:47.879 | INFO     | server.pipeline:on_connected:503 - session 65ced5bb88be: client connected
+2026-11-22 17:45:47.880 | DEBUG    | pipecat.transports.smallwebrtc.connection:_cancel_data_channel_timeout:665 - Cancelling the data channel timeout task
+2026-11-22 17:45:47.880 | DEBUG    | pipecat.transports.smallwebrtc.connection:_flush_message_queue:820 - Data channel is open, flushing queued messages
+2026-11-22 17:45:48.063 | DEBUG    | pipecat.services.elevenlabs.tts_base:_disconnect_websocket:754 - Disconnecting from ElevenLabs
+2026-11-22 17:45:48.187 | DEBUG    | pipecat.services.deepgram.flux.stt:_connect_websocket:344 - DeepgramFluxSTTService#1: Websocket connection initialized: {"headers": {'dg-project-id': 'fa57e37e-2afc-4b74-964d-a33ba00eabb7', 'dg-request-id': '01a20614-ad67-7411-8781-c8a651f997f8'}}
+2026-11-22 17:45:48.195 | DEBUG    | pipecat.registry.registry:register:132 - Worker 'PipelineWorker#1' ready (local)
+2026-11-22 17:45:48.195 | DEBUG    | pipecat.workers.runner:_send_registry:511 - WorkerRunner 'runner-c3c8a807': broadcasting registry: ['PipelineWorker#1']
+2026-11-22 17:45:48.195 | DEBUG    | pipecat.workers.base_worker:_maybe_activate:1284 - Worker 'PipelineWorker#1': activated
+2026-11-22 17:45:48.195 | DEBUG    | pipecat.pipeline.worker:_wait_for_pipeline_start:1344 - PipelineWorker#1: StartFrame#1 reached the end of the pipeline, pipeline is now ready.
+2026-11-22 17:45:48.196 | INFO     | pipecat.services.deepgram.flux.stt_base:_handle_connection_established:770 - DeepgramFluxSTTService#1: Connected to Flux - ready to stream audio (request_id='01a20614-ad67-7411-8781-c8a651f997f8')
+2026-11-22 17:45:49.500 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:stop_ttfb_metrics:175 - SentenceFlushingTTS#1 TTFB: 0.237s
+2026-11-22 17:45:49.502 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:process_ttfa_metrics:228 - SentenceFlushingTTS#1 TTFA: 0.279s (0.042s leading silence)
+2026-11-22 17:45:49.506 | DEBUG    | pipecat.transports.base_output:_bot_started_speaking:751 - Bot started speaking
+2026-11-22 17:45:49.839 | DEBUG    | pipecat.services.elevenlabs.tts:_receive_messages:608 - Received final message for context 4b6c8855-87da-4b81-bdce-1b688f0f4319
+2026-11-22 17:45:49.844 | DEBUG    | pipecat.services.tts_service:_finish_tts_context:1624 - SentenceFlushingTTS#1 cleaning up TTS context 4b6c8855-87da-4b81-bdce-1b688f0f4319
+2026-11-22 17:45:50.064 | DEBUG    | pipecat.services.elevenlabs.tts_base:_disconnect_websocket:765 - ElevenLabs did not close the WebSocket within 2.0s; closing from our side
+2026-11-22 17:45:50.163 | DEBUG    | pipecat.services.elevenlabs.tts_base:_disconnect_websocket:769 - Disconnected from ElevenLabs
+2026-11-22 17:45:50.168 | DEBUG    | pipecat.pipeline.worker:wait_for_cancel:1355 - PipelineWorker#0: CancelFrame#0(reason: None) reached the end of the pipeline.
+2026-11-22 17:45:50.169 | DEBUG    | pipecat.utils.base_object:cleanup:179 - PipelineWorker#0: waiting on event handlers to finish ['on_pipeline_finished']...
+2026-11-22 17:45:50.171 | DEBUG    | pipecat.pipeline.worker:run:927 - Pipeline worker PipelineWorker#0 is finishing...
+2026-11-22 17:45:50.171 | DEBUG    | pipecat.pipeline.worker:run:932 - Pipeline worker PipelineWorker#0 has finished
+2026-11-22 17:45:50.171 | DEBUG    | pipecat.workers.runner:run:316 - WorkerRunner 'runner-41ccfe4c': finished running
+2026-11-22 17:45:51.407 | DEBUG    | pipecat.transports.smallwebrtc.connection:_idle_watcher:224 - Disabling receiver for audio track after 3.62s idle
+2026-11-22 17:45:51.407 | DEBUG    | pipecat.transports.smallwebrtc.connection:discard_old_frames:193 - Discarding old frames
+2026-11-22 17:46:02.662 | DEBUG    | pipecat.transports.base_output:_handle_frame:934 - Bot stopped speaking based on TTSStoppedFrame
+2026-11-22 17:46:02.662 | DEBUG    | pipecat.transports.base_output:_bot_stopped_speaking:868 - Bot stopped speaking
+2026-11-22 17:46:04.631 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_start_of_turn:842 - User started speaking
+2026-11-22 17:46:04.632 | DEBUG    | pipecat.turns.user_start.external_user_turn_start_strategy:process_frame:67 - ExternalUserTurnStartStrategy#2: resolving a proposed user turn start
+2026-11-22 17:46:04.632 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_started:237 - UserTurnProcessor#1: User started speaking (strategy: ExternalUserTurnStartStrategy#2)
+2026-11-22 17:46:04.632 | DEBUG    | pipecat.processors.frame_processor:broadcast_interruption:1050 - UserTurnProcessor#1: broadcasting interruption
+2026-11-22 17:46:05.552 | INFO     | server.pipeline:_speculate:232 - eager: answering draft 'What does this project do?'
+2026-11-22 17:46:05.989 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_end_of_turn:914 - User stopped speaking
+2026-11-22 17:46:05.990 | DEBUG    | pipecat.turns.user_stop.external_user_turn_stop_strategy:_report_user_turn_stopped:211 - ExternalUserTurnStopStrategy#2: resolving a proposed user turn stop
+2026-11-22 17:46:05.991 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_inference_triggered:279 - UserTurnProcessor#1: User turn inference triggered (strategy: ExternalUserTurnStopStrategy#2)
+2026-11-22 17:46:05.991 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_stopped:255 - UserTurnProcessor#1: User stopped speaking (strategy: ExternalUserTurnStopStrategy#2)
+2026-11-22 17:46:05.992 | INFO     | server.pipeline:_confirm_speculation:237 - eager: confirmed, 0.44s head start, 1 frames released
+2026-11-22 17:46:06.509 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:stop_ttfb_metrics:175 - SentenceFlushingTTS#1 TTFB: 0.222s
+2026-11-22 17:46:06.510 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:process_ttfa_metrics:228 - SentenceFlushingTTS#1 TTFA: 0.270s (0.048s leading silence)
+2026-11-22 17:46:06.512 | DEBUG    | pipecat.transports.base_output:_bot_started_speaking:751 - Bot started speaking
+2026-11-22 17:46:06.654 | INFO     | server.pipeline:_answer:349 - answer: highlight=model rounds=1 tools=1 first_text=0.4729169580095913 total=1.10s
+2026-11-22 17:46:06.655 | DEBUG    | pipecat.services.tts_service:_handle_llm_response_end:1435 - SentenceFlushingTTS#1: Generating TTS [This is a starter template that pairs a FastAPI backend, using SQLModel and PostgreSQL, with a React and TypeScript frontend, and it ships with user accounts, login, and items out of the box. Want me to walk through the backend models or the login flow next? ]
+2026-11-22 17:46:07.084 | DEBUG    | pipecat.services.elevenlabs.tts:_receive_messages:608 - Received final message for context 6659f1a7-6843-46ee-b892-0957d9ba8463
+2026-11-22 17:46:07.084 | DEBUG    | pipecat.services.tts_service:_finish_tts_context:1624 - SentenceFlushingTTS#1 cleaning up TTS context 6659f1a7-6843-46ee-b892-0957d9ba8463
+2026-11-22 17:46:23.911 | DEBUG    | pipecat.transports.base_output:_handle_frame:934 - Bot stopped speaking based on TTSStoppedFrame
+2026-11-22 17:46:23.911 | DEBUG    | pipecat.transports.base_output:_bot_stopped_speaking:868 - Bot stopped speaking
+2026-11-22 17:46:26.869 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_start_of_turn:842 - User started speaking
+2026-11-22 17:46:26.871 | DEBUG    | pipecat.turns.user_start.external_user_turn_start_strategy:process_frame:67 - ExternalUserTurnStartStrategy#2: resolving a proposed user turn start
+2026-11-22 17:46:26.871 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_started:237 - UserTurnProcessor#1: User started speaking (strategy: ExternalUserTurnStartStrategy#2)
+2026-11-22 17:46:26.871 | DEBUG    | pipecat.processors.frame_processor:broadcast_interruption:1050 - UserTurnProcessor#1: broadcasting interruption
+2026-11-22 17:46:28.070 | INFO     | server.pipeline:_speculate:232 - eager: answering draft 'How is the back end organized?'
+2026-11-22 17:46:28.074 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_end_of_turn:914 - User stopped speaking
+2026-11-22 17:46:28.075 | DEBUG    | pipecat.turns.user_stop.external_user_turn_stop_strategy:_report_user_turn_stopped:211 - ExternalUserTurnStopStrategy#2: resolving a proposed user turn stop
+2026-11-22 17:46:28.075 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_inference_triggered:279 - UserTurnProcessor#1: User turn inference triggered (strategy: ExternalUserTurnStopStrategy#2)
+2026-11-22 17:46:28.075 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_stopped:255 - UserTurnProcessor#1: User stopped speaking (strategy: ExternalUserTurnStopStrategy#2)
+2026-11-22 17:46:28.077 | INFO     | server.pipeline:_confirm_speculation:237 - eager: confirmed, 0.01s head start, 1 frames released
+2026-11-22 17:46:29.312 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:stop_ttfb_metrics:175 - SentenceFlushingTTS#1 TTFB: 0.220s
+2026-11-22 17:46:29.314 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:process_ttfa_metrics:228 - SentenceFlushingTTS#1 TTFA: 0.254s (0.034s leading silence)
+2026-11-22 17:46:29.316 | DEBUG    | pipecat.transports.base_output:_bot_started_speaking:751 - Bot started speaking
+2026-11-22 17:46:30.180 | INFO     | server.pipeline:_answer:349 - answer: highlight=model rounds=2 tools=2 first_text=0.5663164160214365 total=2.11s
+2026-11-22 17:46:30.182 | DEBUG    | pipecat.services.tts_service:_handle_llm_response_end:1435 - SentenceFlushingTTS#1: Generating TTS [Let me check how the backend folders are laid out. The backend is split into a few layers: the models holds the SQLModel table and request/response schemas, the crud file has the database operations, api/routes holds the endpoints like the users file and the login file, and core holds config, database setup, and security. The user models on screen are the base schemas that the create, update, and public response shapes build on. Want me to trace a request from a route down to the database? ]
+2026-11-22 17:46:30.957 | DEBUG    | pipecat.services.elevenlabs.tts:_receive_messages:608 - Received final message for context 5bd974a4-18f7-43a0-9901-8520941e28f7
+2026-11-22 17:46:30.958 | DEBUG    | pipecat.services.tts_service:_finish_tts_context:1624 - SentenceFlushingTTS#1 cleaning up TTS context 5bd974a4-18f7-43a0-9901-8520941e28f7
+2026-11-22 17:47:02.070 | DEBUG    | pipecat.transports.base_output:_handle_frame:934 - Bot stopped speaking based on TTSStoppedFrame
+2026-11-22 17:47:02.070 | DEBUG    | pipecat.transports.base_output:_bot_stopped_speaking:868 - Bot stopped speaking
+2026-11-22 17:47:05.029 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_start_of_turn:842 - User started speaking
+2026-11-22 17:47:05.030 | DEBUG    | pipecat.turns.user_start.external_user_turn_start_strategy:process_frame:67 - ExternalUserTurnStartStrategy#2: resolving a proposed user turn start
+2026-11-22 17:47:05.030 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_started:237 - UserTurnProcessor#1: User started speaking (strategy: ExternalUserTurnStartStrategy#2)
+2026-11-22 17:47:05.030 | DEBUG    | pipecat.processors.frame_processor:broadcast_interruption:1050 - UserTurnProcessor#1: broadcasting interruption
+2026-11-22 17:47:06.791 | INFO     | server.pipeline:_speculate:232 - eager: answering draft 'How do the front end and back end share types'
+2026-11-22 17:47:06.875 | INFO     | server.pipeline:_cancel_speculation:263 - eager: discarded (turn resumed)
+2026-11-22 17:47:06.949 | INFO     | server.pipeline:_speculate:232 - eager: answering draft 'How do the front end and back end share types?'
+2026-11-22 17:47:07.073 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_end_of_turn:914 - User stopped speaking
+2026-11-22 17:47:07.074 | DEBUG    | pipecat.turns.user_stop.external_user_turn_stop_strategy:_report_user_turn_stopped:211 - ExternalUserTurnStopStrategy#2: resolving a proposed user turn stop
+2026-11-22 17:47:07.075 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_inference_triggered:279 - UserTurnProcessor#1: User turn inference triggered (strategy: ExternalUserTurnStopStrategy#2)
+2026-11-22 17:47:07.075 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_stopped:255 - UserTurnProcessor#1: User stopped speaking (strategy: ExternalUserTurnStopStrategy#2)
+2026-11-22 17:47:07.076 | INFO     | server.pipeline:_confirm_speculation:237 - eager: confirmed, 0.13s head start, 1 frames released
+2026-11-22 17:47:07.731 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:stop_ttfb_metrics:175 - SentenceFlushingTTS#1 TTFB: 0.224s
+2026-11-22 17:47:07.732 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:process_ttfa_metrics:228 - SentenceFlushingTTS#1 TTFA: 0.292s (0.068s leading silence)
+2026-11-22 17:47:07.734 | DEBUG    | pipecat.transports.base_output:_bot_started_speaking:751 - Bot started speaking
+2026-11-22 17:47:09.388 | INFO     | server.pipeline:_answer:349 - answer: highlight=model rounds=2 tools=2 first_text=0.4662222089827992 total=2.44s
+2026-11-22 17:47:09.390 | DEBUG    | pipecat.services.tts_service:_handle_llm_response_end:1435 - SentenceFlushingTTS#1: Generating TTS [The frontend doesn't hand-write its types. A generator reads the backend's OpenAPI schema and produces the TypeScript client, which is why the file the types.ts mirrors the Pydantic and SQLModel classes like the user models on screen. Let me pull up the generated types to show you. The grep confirms the generated file has UserCreate and UserPublic types matching the backend's Pydantic models. So a field change in the models flows to the frontend after regenerating the client. Want me to show the generated UserCreate type next to its backend counterpart? ]
+2026-11-22 17:47:09.760 | DEBUG    | pipecat.services.elevenlabs.tts:_receive_messages:608 - Received final message for context fa46a293-abe5-497f-955a-b2bbf7042378
+2026-11-22 17:47:09.760 | DEBUG    | pipecat.services.tts_service:_finish_tts_context:1624 - SentenceFlushingTTS#1 cleaning up TTS context fa46a293-abe5-497f-955a-b2bbf7042378
+2026-11-22 17:47:18.261 | DEBUG    | pipecat.services.elevenlabs.tts:_receive_messages:608 - Received final message for context None
+2026-11-22 17:47:42.050 | DEBUG    | pipecat.transports.base_output:_handle_frame:934 - Bot stopped speaking based on TTSStoppedFrame
+2026-11-22 17:47:42.050 | DEBUG    | pipecat.transports.base_output:_bot_stopped_speaking:868 - Bot stopped speaking
+2026-11-22 17:47:45.196 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_start_of_turn:842 - User started speaking
+2026-11-22 17:47:45.197 | DEBUG    | pipecat.turns.user_start.external_user_turn_start_strategy:process_frame:67 - ExternalUserTurnStartStrategy#2: resolving a proposed user turn start
+2026-11-22 17:47:45.197 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_started:237 - UserTurnProcessor#1: User started speaking (strategy: ExternalUserTurnStartStrategy#2)
+2026-11-22 17:47:45.197 | DEBUG    | pipecat.processors.frame_processor:broadcast_interruption:1050 - UserTurnProcessor#1: broadcasting interruption
+2026-11-22 17:47:46.077 | INFO     | server.pipeline:_speculate:232 - eager: answering draft 'Where is the login endpoint?'
+2026-11-22 17:47:46.716 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_end_of_turn:914 - User stopped speaking
+2026-11-22 17:47:46.717 | DEBUG    | pipecat.turns.user_stop.external_user_turn_stop_strategy:_report_user_turn_stopped:211 - ExternalUserTurnStopStrategy#2: resolving a proposed user turn stop
+2026-11-22 17:47:46.717 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_inference_triggered:279 - UserTurnProcessor#1: User turn inference triggered (strategy: ExternalUserTurnStopStrategy#2)
+2026-11-22 17:47:46.717 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_stopped:255 - UserTurnProcessor#1: User stopped speaking (strategy: ExternalUserTurnStopStrategy#2)
+2026-11-22 17:47:46.718 | INFO     | server.pipeline:_confirm_speculation:237 - eager: confirmed, 0.64s head start, 2 frames released
+2026-11-22 17:47:46.948 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:stop_ttfb_metrics:175 - SentenceFlushingTTS#1 TTFB: 0.227s
+2026-11-22 17:47:46.949 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:process_ttfa_metrics:228 - SentenceFlushingTTS#1 TTFA: 0.295s (0.068s leading silence)
+2026-11-22 17:47:46.951 | DEBUG    | pipecat.transports.base_output:_bot_started_speaking:751 - Bot started speaking
+2026-11-22 17:47:47.778 | INFO     | server.pipeline:_answer:349 - answer: highlight=model rounds=2 tools=2 first_text=0.4517570419993717 total=1.70s
+2026-11-22 17:47:47.779 | DEBUG    | pipecat.services.tts_service:_handle_llm_response_end:1435 - SentenceFlushingTTS#1: Generating TTS [The login endpoint lives in the login route file, which is the login file. Let me open it. The login handler, login access token, is in the login routes file. It checks the email and password, then issues an access token. ]
+2026-11-22 17:47:48.061 | DEBUG    | pipecat.services.elevenlabs.tts:_receive_messages:608 - Received final message for context 615ae463-8b64-4dce-8824-6d7d93731603
+2026-11-22 17:47:48.061 | DEBUG    | pipecat.services.tts_service:_finish_tts_context:1624 - SentenceFlushingTTS#1 cleaning up TTS context 615ae463-8b64-4dce-8824-6d7d93731603
+2026-11-22 17:48:01.991 | DEBUG    | pipecat.transports.base_output:_handle_frame:934 - Bot stopped speaking based on TTSStoppedFrame
+2026-11-22 17:48:01.992 | DEBUG    | pipecat.transports.base_output:_bot_stopped_speaking:868 - Bot stopped speaking
+2026-11-22 17:48:04.964 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_start_of_turn:842 - User started speaking
+2026-11-22 17:48:04.964 | DEBUG    | pipecat.turns.user_start.external_user_turn_start_strategy:process_frame:67 - ExternalUserTurnStartStrategy#2: resolving a proposed user turn start
+2026-11-22 17:48:04.964 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_started:237 - UserTurnProcessor#1: User started speaking (strategy: ExternalUserTurnStartStrategy#2)
+2026-11-22 17:48:04.964 | DEBUG    | pipecat.processors.frame_processor:broadcast_interruption:1050 - UserTurnProcessor#1: broadcasting interruption
+2026-11-22 17:48:05.839 | INFO     | server.pipeline:_speculate:232 - eager: answering draft 'How are passwords hash?'
+2026-11-22 17:48:05.844 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_end_of_turn:914 - User stopped speaking
+2026-11-22 17:48:05.845 | DEBUG    | pipecat.turns.user_stop.external_user_turn_stop_strategy:_report_user_turn_stopped:211 - ExternalUserTurnStopStrategy#2: resolving a proposed user turn stop
+2026-11-22 17:48:05.845 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_inference_triggered:279 - UserTurnProcessor#1: User turn inference triggered (strategy: ExternalUserTurnStopStrategy#2)
+2026-11-22 17:48:05.845 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_stopped:255 - UserTurnProcessor#1: User stopped speaking (strategy: ExternalUserTurnStopStrategy#2)
+2026-11-22 17:48:05.846 | INFO     | server.pipeline:_confirm_speculation:237 - eager: confirmed, 0.01s head start, 1 frames released
+2026-11-22 17:48:06.751 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:stop_ttfb_metrics:175 - SentenceFlushingTTS#1 TTFB: 0.263s
+2026-11-22 17:48:06.753 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:process_ttfa_metrics:228 - SentenceFlushingTTS#1 TTFA: 0.298s (0.035s leading silence)
+2026-11-22 17:48:06.758 | DEBUG    | pipecat.transports.base_output:_bot_started_speaking:751 - Bot started speaking
+2026-11-22 17:48:08.007 | INFO     | server.pipeline:_answer:349 - answer: highlight=model rounds=2 tools=2 first_text=0.5106750830018427 total=2.17s
+2026-11-22 17:48:08.009 | DEBUG    | pipecat.services.tts_service:_handle_llm_response_end:1435 - SentenceFlushingTTS#1: Generating TTS [Passwords are hashed in the security module, which has a get password hash function and a verify password function. The login handler calls the authenticate function in the crud file, which checks the submitted password against the stored hash. Let me pull up the hashing code. Passwords are hashed with the pwdlib library, using Argon2 as the primary hasher and bcrypt as a fallback for older hashes. verify password checks a login attempt and can upgrade an old hash on the fly. Tokens are signed JWTs using HS256 and the app's secret key. ]
+2026-11-22 17:48:08.456 | DEBUG    | pipecat.services.elevenlabs.tts:_receive_messages:608 - Received final message for context c299b973-d15a-49c6-b72e-bf5eab13d5b2
+2026-11-22 17:48:08.457 | DEBUG    | pipecat.services.tts_service:_finish_tts_context:1624 - SentenceFlushingTTS#1 cleaning up TTS context c299b973-d15a-49c6-b72e-bf5eab13d5b2
+2026-11-22 17:48:18.285 | DEBUG    | pipecat.services.elevenlabs.tts:_receive_messages:608 - Received final message for context None
+2026-11-22 17:48:42.511 | DEBUG    | pipecat.transports.base_output:_handle_frame:934 - Bot stopped speaking based on TTSStoppedFrame
+2026-11-22 17:48:42.513 | DEBUG    | pipecat.transports.base_output:_bot_stopped_speaking:868 - Bot stopped speaking
+2026-11-22 17:48:45.481 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_start_of_turn:842 - User started speaking
+2026-11-22 17:48:45.481 | DEBUG    | pipecat.turns.user_start.external_user_turn_start_strategy:process_frame:67 - ExternalUserTurnStartStrategy#2: resolving a proposed user turn start
+2026-11-22 17:48:45.482 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_started:237 - UserTurnProcessor#1: User started speaking (strategy: ExternalUserTurnStartStrategy#2)
+2026-11-22 17:48:45.482 | DEBUG    | pipecat.processors.frame_processor:broadcast_interruption:1050 - UserTurnProcessor#1: broadcasting interruption
+2026-11-22 17:48:46.726 | INFO     | server.pipeline:_speculate:232 - eager: answering draft 'Where is the database session created'
+2026-11-22 17:48:46.802 | INFO     | server.pipeline:_cancel_speculation:263 - eager: discarded (turn resumed)
+2026-11-22 17:48:46.921 | INFO     | server.pipeline:_speculate:232 - eager: answering draft 'Where is the database session created?'
+2026-11-22 17:48:46.961 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_handle_end_of_turn:914 - User stopped speaking
+2026-11-22 17:48:46.962 | DEBUG    | pipecat.turns.user_stop.external_user_turn_stop_strategy:_report_user_turn_stopped:211 - ExternalUserTurnStopStrategy#2: resolving a proposed user turn stop
+2026-11-22 17:48:46.962 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_inference_triggered:279 - UserTurnProcessor#1: User turn inference triggered (strategy: ExternalUserTurnStopStrategy#2)
+2026-11-22 17:48:46.963 | DEBUG    | pipecat.turns.user_turn_processor:_on_user_turn_stopped:255 - UserTurnProcessor#1: User stopped speaking (strategy: ExternalUserTurnStopStrategy#2)
+2026-11-22 17:48:46.963 | INFO     | server.pipeline:_confirm_speculation:237 - eager: confirmed, 0.04s head start, 1 frames released
+2026-11-22 17:48:48.032 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:stop_ttfb_metrics:175 - SentenceFlushingTTS#1 TTFB: 0.238s
+2026-11-22 17:48:48.034 | DEBUG    | pipecat.processors.metrics.frame_processor_metrics:process_ttfa_metrics:228 - SentenceFlushingTTS#1 TTFA: 0.269s (0.031s leading silence)
+2026-11-22 17:48:48.036 | DEBUG    | pipecat.transports.base_output:_bot_started_speaking:751 - Bot started speaking
+2026-11-22 17:48:49.113 | INFO     | server.pipeline:_answer:349 - answer: highlight=model rounds=2 tools=3 first_text=0.4446447910158895 total=2.19s
+2026-11-22 17:48:49.114 | DEBUG    | pipecat.services.tts_service:_handle_llm_response_end:1435 - SentenceFlushingTTS#1: Generating TTS [Let me check the database setup module for where the session is made. The engine is created in the database module, and each request gets its session from a dependency. The engine is built in the db file, and the get db generator in the dependencies file opens a session per request. Let me show both. ]
+2026-11-22 17:48:49.347 | DEBUG    | pipecat.services.elevenlabs.tts:_receive_messages:608 - Received final message for context e07ebd00-ab75-45ca-adcb-4c39a4bc3fda
+2026-11-22 17:48:49.347 | DEBUG    | pipecat.services.tts_service:_finish_tts_context:1624 - SentenceFlushingTTS#1 cleaning up TTS context e07ebd00-ab75-45ca-adcb-4c39a4bc3fda
+2026-11-22 17:48:58.276 | DEBUG    | pipecat.services.elevenlabs.tts:_receive_messages:608 - Received final message for context None
+2026-11-22 17:49:06.271 | DEBUG    | pipecat.transports.base_output:_handle_frame:934 - Bot stopped speaking based on TTSStoppedFrame
+2026-11-22 17:49:06.272 | DEBUG    | pipecat.transports.base_output:_bot_stopped_speaking:868 - Bot stopped speaking
+2026-11-22 17:49:08.837 | WARNING  | pipecat.transports.smallwebrtc.transport:read_audio_frame:462 - Media stream error while reading the audio; clearing track.
+2026-11-22 17:49:08.837 | DEBUG    | pipecat.transports.smallwebrtc.connection:on_ended:416 - Track audio ended
+2026-11-22 17:49:08.838 | DEBUG    | pipecat.transports.smallwebrtc.connection:on_iceconnectionstatechange:401 - ICE connection state is closed, connection is closed
+2026-11-22 17:49:08.838 | DEBUG    | pipecat.transports.smallwebrtc.connection:_handle_new_connection_state:683 - Connection state changed to: closed
+2026-11-22 17:49:08.838 | INFO     | pipecat.transports.smallwebrtc.request_handler:handle_disconnected:212 - Discarding peer connection for pc_id: SmallWebRTCConnection#1-6cfe6415b81b454c907c94a389590603
+2026-11-22 17:49:08.838 | DEBUG    | pipecat.transports.smallwebrtc.transport:on_closed:289 - Client connection closed.
+2026-11-22 17:49:08.839 | INFO     | server.pipeline:on_disconnected:508 - session 65ced5bb88be: client disconnected
+2026-11-22 17:49:08.839 | DEBUG    | pipecat.pipeline.worker:_cancel:1188 - Cancelling pipeline worker PipelineWorker#1
+2026-11-22 17:49:08.839 | DEBUG    | pipecat.pipeline.worker:_wait_for_pipeline_end:1364 - PipelineWorker#1: Closing. Waiting for CancelFrame#1(reason: None) to reach the end of the pipeline...
+2026-11-22 17:49:08.841 | DEBUG    | pipecat.services.deepgram.flux.stt_base:_send_close_stream:515 - Sending CloseStream message to Deepgram Flux
+2026-11-22 17:49:08.841 | DEBUG    | pipecat.services.deepgram.flux.stt:_disconnect_websocket:367 - DeepgramFluxSTTService#1: Disconnecting from Deepgram Flux Websocket
+INFO:     Shutting down
+2026-11-22 17:49:08.920 | DEBUG    | pipecat.services.elevenlabs.tts_base:_disconnect_websocket:754 - Disconnecting from ElevenLabs
+INFO:     Waiting for background tasks to complete. (CTRL+C to force quit)
+2026-11-22 17:49:10.922 | DEBUG    | pipecat.services.elevenlabs.tts_base:_disconnect_websocket:765 - ElevenLabs did not close the WebSocket within 2.0s; closing from our side
+2026-11-22 17:49:11.012 | DEBUG    | pipecat.services.elevenlabs.tts_base:_disconnect_websocket:769 - Disconnected from ElevenLabs
+2026-11-22 17:49:11.014 | DEBUG    | pipecat.pipeline.worker:wait_for_cancel:1355 - PipelineWorker#1: CancelFrame#1(reason: None) reached the end of the pipeline.
+2026-11-22 17:49:11.014 | DEBUG    | pipecat.utils.base_object:cleanup:179 - PipelineWorker#1: waiting on event handlers to finish ['on_pipeline_finished']...
+2026-11-22 17:49:11.017 | DEBUG    | pipecat.pipeline.worker:run:927 - Pipeline worker PipelineWorker#1 is finishing...
+2026-11-22 17:49:11.017 | DEBUG    | pipecat.pipeline.worker:run:932 - Pipeline worker PipelineWorker#1 has finished
+2026-11-22 17:49:11.017 | DEBUG    | pipecat.workers.runner:run:316 - WorkerRunner 'runner-c3c8a807': finished running
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [1185]

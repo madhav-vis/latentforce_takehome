@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Talk to a repo</title>
+  <style>
+    :root {
+      --bg: #f7f7f5; --panel: #ffffff; --ink: #1d1f23; --muted: #6b7079; --line: #e3e4e0;
+      --accent: #2f6fe4; --accent-soft: rgba(47, 111, 228, .12); --listen: #1f9d6b;
+      --err: #c2412d; --gutter: #a2a6ad; --hl: rgba(47, 111, 228, .10);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #141518; --panel: #1b1d21; --ink: #e7e8ea; --muted: #9a9fa8; --line: #2b2e34;
+        --accent: #6b9bff; --accent-soft: rgba(107, 155, 255, .16); --listen: #3ccf91;
+        --err: #ff7b66; --gutter: #5c616b; --hl: rgba(107, 155, 255, .14);
+        color-scheme: dark;
+      }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink);
+           font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+    header { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap;
+             padding: 1rem 1.25rem; border-bottom: 1px solid var(--line); background: var(--panel); }
+    header h1 { font-size: 1rem; font-weight: 600; margin: 0 .75rem 0 0; white-space: nowrap; }
+    #url { flex: 1 1 320px; min-width: 0; padding: .55rem .75rem; font: inherit; color: inherit;
+           background: var(--bg); border: 1px solid var(--line); border-radius: 8px; }
+    #url:focus { outline: 2px solid var(--accent-soft); border-color: var(--accent); }
+    #go { padding: .55rem 1rem; font: inherit; font-weight: 600; color: #fff; background: var(--accent);
+          border: 0; border-radius: 8px; cursor: pointer; white-space: nowrap; }
+    #go:disabled { opacity: .55; cursor: default; }
+    #go.end { background: var(--err); }
+
+    main { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 1.25rem;
+           padding: 1.25rem; max-width: 1200px; margin: 0 auto; }
+    @media (max-width: 760px) { main { grid-template-columns: minmax(0, 1fr); padding: 1rem; } }
+
+    /* voice column */
+    #voice { display: flex; flex-direction: column; align-items: center; text-align: center;
+             gap: .9rem; padding: 2rem 1rem; }
+    #bubble { width: 120px; height: 120px; border-radius: 50%; background: var(--line);
+              position: relative; transition: background .25s, transform .25s; }
+    #bubble::after { content: ""; position: absolute; inset: -10px; border-radius: 50%;
+                     border: 2px solid transparent; transition: border-color .25s; }
+    #bubble.connecting { animation: breathe 1.6s ease-in-out infinite; }
+    #bubble.ready { background: var(--accent-soft); }
+    #bubble.listening::after { border-color: var(--listen); }
+    #bubble.talking { background: var(--accent); animation: pulse .9s ease-in-out infinite; }
+    @keyframes pulse { 50% { transform: scale(1.08); } }
+    @keyframes breathe { 50% { opacity: .45; } }
+    @media (prefers-reduced-motion: reduce) { #bubble { animation: none !important; } }
+    #repo { font-family: var(--mono); font-size: .85rem; color: var(--muted); min-height: 1.3em;
+            overflow-wrap: anywhere; }
+    #status { color: var(--muted); font-size: .9rem; min-height: 1.4em; max-width: 100%;
+              white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    #status.err { color: var(--err); white-space: normal; }
+
+    /* code pane */
+    #pane { background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+            min-height: 360px; display: flex; flex-direction: column; overflow: hidden; }
+    #pane-head { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline;
+                 padding: .6rem .9rem; border-bottom: 1px solid var(--line); font-size: .85rem; }
+    #path { font-family: var(--mono); overflow-wrap: anywhere; }
+    #range { color: var(--muted); white-space: nowrap; }
+    #symbol { color: var(--accent); font-family: var(--mono); margin-left: .6rem; }
+    #code { position: relative; margin: 0; padding: .5rem 0; overflow: auto; flex: 1; max-height: 70vh;
+            font: 13px/1.6 var(--mono); tab-size: 4; }
+    #code .row { display: grid; grid-template-columns: 4.5em minmax(0, 1fr);
+                 min-width: 100%; width: max-content; }   /* highlight spans scrolled width */
+    #code .n { color: var(--gutter); text-align: right; padding-right: 1em; user-select: none; }
+    #code .t { white-space: pre; padding-right: 1rem; }
+    #code .row.hl { background: var(--hl); box-shadow: inset 3px 0 0 var(--accent); }
+    #code .row.hl .n { color: var(--accent); }
+    #code.flash { animation: flash .6s ease-out; }
+    @keyframes flash { from { background: var(--accent-soft); } }
+    #empty { color: var(--muted); padding: 2.5rem 1.25rem; text-align: center; margin: auto; }
+  </style>
+  <script type="importmap">
+    {
+      "imports": {
+        "@pipecat-ai/client-js": "https://esm.sh/@pipecat-ai/client-js@1.16.0",
+        "@pipecat-ai/small-webrtc-transport": "https://esm.sh/@pipecat-ai/small-webrtc-transport@1.11.2?external=@pipecat-ai/client-js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Talk to a repo</h1>
+    <input id="url" type="url" placeholder="https://github.com/owner/repo" autocomplete="off" spellcheck="false">
+    <button id="go">Talk to this repo</button>
+  </header>
+
+  <main>
+    <section id="voice" aria-label="Voice">
+      <div id="bubble" role="img" aria-label="Assistant voice"></div>
+      <div id="repo"></div>
+      <div id="status" aria-live="polite">Paste a public GitHub link to start.</div>
+    </section>
+
+    <section id="pane" aria-label="Code being discussed">
+      <div id="pane-head" hidden><span><span id="path"></span><span id="symbol"></span></span><span id="range"></span></div>
+      <div id="empty">The code I'm talking about will show up here.</div>
+      <pre id="code" hidden></pre>
+    </section>
+  </main>
+  <audio id="bot-audio" autoplay></audio>
+
+  <script type="module">
+    import { PipecatClient } from "@pipecat-ai/client-js";
+    import { SmallWebRTCTransport } from "@pipecat-ai/small-webrtc-transport";
+
+    const $ = (id) => document.getElementById(id);
+    const bubble = $("bubble"), go = $("go");
+    const READY_TEXT = "Paste a public GitHub link to start.";
+    let client = null, events = null, connected = false;
+
+    function status(text, isError = false) {
+      $("status").textContent = text;
+      $("status").classList.toggle("err", isError);
+    }
+
+    function setBubble(state) {            // idle | connecting | ready
+      bubble.classList.remove("connecting", "ready");
+      if (state !== "idle") bubble.classList.add(state);
+    }
+
+    function setButton(mode) {             // start | busy | end
+      go.disabled = mode === "busy";
+      go.classList.toggle("end", mode === "end");
+      go.textContent = mode === "end" ? "End" : "Talk to this repo";
+    }
+
+    async function start() {
+      const url = $("url").value.trim();
+      if (!url) { $("url").focus(); return; }
+      setButton("busy");
+      setBubble("connecting");
+      status("Starting…");
+
+      // Start the clone first: it runs while the browser asks for the mic.
+      let session_id;
+      try {
+        const res = await fetch("/session", {
+          method: "POST", headers: { "content-type": "application/json" },
+          body: JSON.stringify({ repo_url: url }),
+        });
+        const body = await res.json();
+        if (!res.ok) throw new Error(body.detail || "Couldn't start a session.");
+        session_id = body.session_id;
+      } catch (e) {
+        return fail(e.message);
+      }
+      $("repo").textContent = url.replace(/^https:\/\/github\.com\//, "").replace(/\/$/, "");
+
+      // Progress and code highlights arrive over server-sent events, separate from audio.
+      events = new EventSource(`/events/${session_id}`);
+      events.onmessage = (m) => render(JSON.parse(m.data));
+
+      client = new PipecatClient({
+        transport: new SmallWebRTCTransport(),
+        enableMic: true,
+        enableCam: false,
+        callbacks: {
+          onTrackStarted: (track, participant) => {
+            if (track.kind === "audio" && !participant?.local) {
+              $("bot-audio").srcObject = new MediaStream([track]);
+            }
+          },
+          onConnected: () => { connected = true; setBubble("ready"); setButton("end"); },
+          onBotStartedSpeaking: () => bubble.classList.add("talking"),
+          onBotStoppedSpeaking: () => bubble.classList.remove("talking"),
+          onUserStartedSpeaking: () => bubble.classList.add("listening"),
+          onUserStoppedSpeaking: () => bubble.classList.remove("listening"),
+          onDisconnected: () => { if (client) stop(READY_TEXT); },
+        },
+      });
+      try {
+        await client.connect({ webrtcRequestParams: { endpoint: `/offer?session_id=${session_id}` } });
+      } catch (e) {
+        const msg = /permission|NotAllowed/i.test(String(e))
+          ? "Microphone access was blocked. Allow it in the browser and try again."
+          : `Couldn't connect: ${e.message || e}`;
+        fail(msg);
+      }
+    }
+
+    function stop(message) {
+      if (events) { events.close(); events = null; }
+      const c = client; client = null; connected = false;
+      if (c) c.disconnect().catch(() => {});
+      bubble.className = "";
+      setButton("start");
+      if (message) status(message);
+    }
+
+    function fail(message) {
+      stop();
+      status(message, true);
+    }
+
+    go.onclick = () => (client ? stop(READY_TEXT) : start());
+    $("url").addEventListener("keydown", (e) => { if (e.key === "Enter" && !client) start(); });
+
+    function render(e) {
+      if (e.type === "progress") status(e.text);
+      else if (e.type === "error") status(e.text, true);
+      else if (e.type === "user") status(`You: ${e.text}`);
+      else if (e.type === "show_code") showCode(e);
+    }
+
+    function showCode(e) {
+      const [a, b] = e.lines;
+      const pre = $("code");
+      const rows = e.code.map((line, i) => {
+        const n = e.first_line + i;
+        const row = document.createElement("div");
+        row.className = "row" + (n >= a && n <= b ? " hl" : "");
+        const num = document.createElement("span");
+        num.className = "n"; num.textContent = n;
+        const text = document.createElement("span");
+        text.className = "t"; text.textContent = line || " ";
+        row.append(num, text);
+        return row;
+      });
+      pre.replaceChildren(...rows);
+      $("path").textContent = e.path;
+      $("symbol").textContent = e.symbol || "";
+      $("range").textContent = a === b ? `line ${a}` : `lines ${a}–${b}`;
+      $("pane-head").hidden = false;
+      $("empty").hidden = true;
+      pre.hidden = false;
+      pre.classList.remove("flash"); void pre.offsetWidth; pre.classList.add("flash");
+      const first = pre.querySelector(".hl");   // scroll inside the pane, not the page
+      if (first) pre.scrollTop = Math.max(0, first.offsetTop - pre.clientHeight / 3);
+    }
+  </script>
+</body>
+</html>

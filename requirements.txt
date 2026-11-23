@@ -1,0 +1,10 @@
+anthropic==2.12.0
+python-dotenv==1.2.2
+tree-sitter==0.26.1
+tree-sitter-language-pack==1.25.2
+networkx==3.7
+numpy==2.5.5
+scipy==1.18.1
+pipecat-ai[deepgram,elevenlabs,webrtc]==1.16.0
+fastapi==0.165.0
+uvicorn==0.54.0
