@@ -7,6 +7,7 @@ build while the browser asks for the microphone.
 """
 
 import asyncio
+import hmac
 import json
 import os
 import shutil
@@ -18,7 +19,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import uvicorn
-from fastapi import BackgroundTasks, FastAPI, HTTPException, Request
+from fastapi import BackgroundTasks, FastAPI, Header, HTTPException, Request
 from fastapi.responses import FileResponse, StreamingResponse
 from loguru import logger
 from pipecat.transports.smallwebrtc.connection import SmallWebRTCConnection
@@ -36,8 +37,13 @@ from .setup import SetupError, parse_repo_url, setup_repo
 WEB = Path(__file__).resolve().parent.parent / "web"
 MAX_SESSIONS = int(os.environ.get("MAX_SESSIONS", "3"))
 CONNECT_WITHIN_S = 300       # drop sessions whose browser never connects
+# Shared passcode for a deployed instance. Unset (local runs) means no gate. Only
+# /session checks it: /events and /offer need a session id, which only /session hands out.
+ACCESS_CODE = os.environ.get("ACCESS_CODE", "")
+# STUN lets the server learn its public address when its interface IP is private (NAT).
+STUN = "stun:stun.l.google.com:19302"
 
-webrtc = SmallWebRTCRequestHandler()
+webrtc = SmallWebRTCRequestHandler(ice_servers=[STUN])
 _tasks: set[asyncio.Task] = set()
 _connected: set[str] = set()
 
@@ -86,7 +92,9 @@ async def _setup(s: Session):
 
 
 @app.post("/session")
-async def create_session(body: SessionRequest):
+async def create_session(body: SessionRequest, x_access_code: str = Header(default="")):
+    if ACCESS_CODE and not hmac.compare_digest(x_access_code.encode(), ACCESS_CODE.encode()):
+        raise HTTPException(401, "Wrong passcode.")
     if not parse_repo_url(body.repo_url):
         raise HTTPException(400, "Expected a link like https://github.com/owner/repo")
     if len(SESSIONS) >= MAX_SESSIONS:

@@ -1,0 +1,29 @@
+# Production: the app plus Caddy for HTTPS (browsers only allow the mic over HTTPS).
+#   docker compose -f docker-compose.prod.yml up -d --build
+# Both use host networking: WebRTC audio uses random UDP ports that have to be
+# reachable on the server's own IP, and Caddy proxies to the app on localhost.
+services:
+  app:
+    build: .
+    env_file: .env
+    environment:
+      HOST: 127.0.0.1          # only Caddy talks to the app
+    network_mode: host
+    volumes:
+      - ./cache:/app/cache
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2
+    network_mode: host
+    environment:
+      SITE_HOST: ${SITE_HOST:?set SITE_HOST in .env, e.g. 203-0-113-5.sslip.io}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+    restart: unless-stopped
+    depends_on:
+      - app
+
+volumes:
+  caddy_data:

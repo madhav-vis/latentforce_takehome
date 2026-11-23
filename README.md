@@ -55,6 +55,50 @@ Ctrl-C during an answer cancels it.
 - "Walk me through everything that happens when a request comes in." This triggers the Sonnet deep dive and takes about 15 seconds.
 - Start talking while it's answering. It stops, and it knows how much of the answer you heard.
 
+## Deploy
+
+To put it online for a few people on your own keys, use a small VPS with Docker and Caddy.
+
+**Pick a host with UDP.** WebRTC audio needs a long-running server that accepts UDP, so serverless hosts won't work. A Hetzner CX22 or a DigitalOcean 2 GB droplet running Ubuntu 24.04 is plenty. Avoid AWS Lightsail and EC2, which put the public IP behind NAT.
+
+1. Install Docker on the server:
+
+   ```sh
+   ssh root@<server-ip>
+   curl -fsSL https://get.docker.com | sh
+   ```
+
+2. Get the code and create `.env`:
+
+   ```sh
+   git clone https://github.com/madhav-vis/latentforce_takehome && cd latentforce_takehome
+   cp .env.example .env
+   ```
+
+   Fill in `.env`:
+   - the three API keys;
+   - `ACCESS_CODE`, a passcode the page asks for once per browser;
+   - `SITE_HOST`, the server IP with dashes plus `.sslip.io`, for example `203-0-113-5.sslip.io`. sslip.io resolves that name to the IP, so you don't need a domain.
+
+3. Start it:
+
+   ```sh
+   docker compose -f docker-compose.prod.yml up -d --build
+   ```
+
+4. Open `https://<SITE_HOST>`. Caddy gets a Let's Encrypt certificate on the first request. Browsers only allow the microphone over HTTPS.
+
+**Firewall.** If you add one, allow TCP 22, 80 and 443, plus UDP 1024–65535 for WebRTC audio.
+
+**Spending limits.** Set them in the Anthropic, Deepgram and ElevenLabs consoles as a backstop.
+
+**Updates and logs:**
+
+```sh
+git pull && docker compose -f docker-compose.prod.yml up -d --build
+docker compose -f docker-compose.prod.yml logs -f
+```
+
 ## How a session works
 
 1. **Link pasted** (`POST /session`). The server validates the URL, then starts a shallow clone and setup while the browser asks for the microphone. Setup:
@@ -139,6 +183,8 @@ Environment variables, all optional except the three keys:
 | `ELEVENLABS_VOICE_ID` | Rachel (`21m00Tcm4TlvDq8ikWAM`) | Bot voice |
 | `EAGER_EOT` | `1` | `0` turns eager end-of-turn off |
 | `EAGER_EOT_THRESHOLD` | `0.3` | Flux eager threshold. Higher means fewer wasted drafts but less head start. |
+| `ACCESS_CODE` | unset | Passcode required to start a session; unset means no gate |
+| `SITE_HOST` | unset | Hostname Caddy serves in `docker-compose.prod.yml` |
 | `MAX_SESSIONS` | `3` | Concurrent sessions before `/session` returns 429 |
 | `HOST` / `PORT` | `127.0.0.1` / `8000` | Server bind address (the Docker image uses `0.0.0.0`) |
 | `REPOS_DIR` | `/tmp/repos` | Where clones go; each is deleted when its session ends |
@@ -152,4 +198,4 @@ Model, effort, token limits and the deep-dive settings are constants at the top 
 - **Repo size.** Files over about 1 MB are skipped, and indexing stops after about 5,000 source files. The clone times out after 30 seconds.
 - **Language coverage.** The repo map works for languages whose tree-sitter grammar ships a tags query, which covers Python, JS/TS, Go, Rust, Java, C/C++, C#, Ruby, PHP, Swift, Kotlin and others. Other files can still be grepped and read; they just don't appear in the map.
 - **Browser.** Developed against Chrome. Echo cancellation is whatever the browser's microphone provides, so headphones help on laptop speakers.
-- **No authentication.** If you expose this beyond localhost, add a passcode and set spending limits in the three provider consoles.
+- **Light access control.** A deployed instance is protected only by the shared `ACCESS_CODE`, so keep spending limits set.

@@ -134,6 +134,15 @@
       go.textContent = mode === "end" ? "End" : "Talk to this repo";
     }
 
+    let memCode = "";                      // fallback when localStorage is blocked
+    function getCode() {
+      try { return localStorage.getItem("access-code") || memCode; } catch { return memCode; }
+    }
+    function setCode(code) {
+      memCode = code;
+      try { localStorage.setItem("access-code", code); } catch {}
+    }
+
     async function start() {
       const url = $("url").value.trim();
       if (!url) { $("url").focus(); return; }
@@ -144,10 +153,18 @@
       // Start the clone first: it runs while the browser asks for the mic.
       let session_id;
       try {
-        const res = await fetch("/session", {
-          method: "POST", headers: { "content-type": "application/json" },
+        const post = () => fetch("/session", {
+          method: "POST",
+          headers: { "content-type": "application/json", "x-access-code": getCode() },
           body: JSON.stringify({ repo_url: url }),
         });
+        let res = await post();
+        if (res.status === 401) {            // deployed with a passcode: ask once, remember it
+          const code = prompt("Passcode");
+          if (code === null) throw new Error("A passcode is needed to start.");
+          setCode(code.trim());
+          res = await post();
+        }
         const body = await res.json();
         if (!res.ok) throw new Error(body.detail || "Couldn't start a session.");
         session_id = body.session_id;
@@ -161,7 +178,7 @@
       events.onmessage = (m) => render(JSON.parse(m.data));
 
       client = new PipecatClient({
-        transport: new SmallWebRTCTransport(),
+        transport: new SmallWebRTCTransport({ iceServers: [{ urls: "stun:stun.l.google.com:19302" }] }),
         enableMic: true,
         enableCam: false,
         callbacks: {
