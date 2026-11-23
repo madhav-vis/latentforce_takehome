@@ -2,13 +2,7 @@
 
 Paste a public GitHub link and talk to the repo. The agent answers out loud in a few sentences while the page highlights the code it's talking about.
 
-- **Agent:** Claude Haiku 5.5, with tools to grep, read files and show code. Long multi-file traces can be handed to Sonnet 5.5.
-- **Speech:** Deepgram Flux for speech-to-text and ElevenLabs Flash v2.5 for text-to-speech.
-- **Plumbing:** Pipecat over SmallWebRTC, FastAPI with server-sent events (SSE), and a single HTML page.
-
-There's no database and no vector index. Each session clones the repo, builds an Aider-style repo map in memory, and the agent searches the real files with ripgrep.
-
-**Live demo: https://78-47-65-212.sslip.io**. Ask me for the passcode.
+**Live demo: https://78-47-65-212.sslip.io**.
 
 ## What it adds over a basic voice agent
 
@@ -41,6 +35,13 @@ A basic voice agent transcribes your question, sends it to a model with a few fi
 Not measured by the evals: barge-in, the spoken progress updates and the greeting were tested by hand only.
 
 ## Run it
+
+- **Agent:** Claude Haiku 5.5, with tools to grep, read files and show code. Long multi-file traces can be handed to Sonnet 5.5.
+- **Speech:** Deepgram Flux for speech-to-text and ElevenLabs Flash v2.5 for text-to-speech.
+- **Plumbing:** Pipecat over SmallWebRTC, FastAPI with server-sent events (SSE), and a single HTML page.
+
+There's no database and no vector index. Each session clones the repo, builds an Aider-style repo map in memory, and the agent searches the real files with ripgrep.
+
 
 You need three API keys:
 
